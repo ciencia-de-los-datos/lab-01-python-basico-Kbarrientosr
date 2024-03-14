@@ -12,6 +12,19 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 
+import csv
+
+def lect_doc():
+    data_base = "data.csv"
+    with open(data_base, "r") as file:
+        list_base = file.readlines()
+
+    list_base = [i.replace("\n","") for i in list_base]
+    list_base = [i.split("\t") for i in list_base]
+
+    return list_base
+
+lect_doc()
 
 def pregunta_01():
     """
@@ -21,8 +34,19 @@ def pregunta_01():
     214
 
     """
-    return
 
+    list_base = lect_doc()
+
+    sum_sec_col = 0
+    list_sec_col = []
+
+    for lista_interna in list_base:
+        list_sec_col.append(int(lista_interna[1]))
+
+    sum_sec_col = sum(i for i in list_sec_col)
+    return sum_sec_col
+
+respuesta=pregunta_01()
 
 def pregunta_02():
     """
@@ -39,7 +63,34 @@ def pregunta_02():
     ]
 
     """
-    return
+    
+    list_base = lect_doc()
+
+    list_preg_2=[]
+    dicc_preg_2={}
+
+# #sacamos los datos de la columna 0 le sumamos 1 y se convierte en tupla.
+# #luego las organizamos alfabeticamente posicionandonos en la clave key
+    for i in list_base:
+        list_preg_2.append((i[0],1))
+        list_preg_2= sorted(list_preg_2, key=lambda x:x[0])
+
+# #se hace esto para evitar errores en caso de que no encuentre la llave
+# #y al final con el append traemos los valores de cada clave
+    for key, value in list_preg_2:
+        if key not in dicc_preg_2.keys():
+            dicc_preg_2[key] = []
+        dicc_preg_2[key].append(value)
+
+# # dicc_preg_2
+
+    Resp_seg_eje=[]      
+    for key, value in dicc_preg_2.items():
+       Resp_seg_eje.append((key, sum(value)))
+
+    return Resp_seg_eje
+
+respuesta = pregunta_02()
 
 
 def pregunta_03():
@@ -57,8 +108,37 @@ def pregunta_03():
     ]
 
     """
-    return
 
+    list_base = lect_doc()
+
+    #primero creamos lista y diccionario
+    list_preg_3=[]
+    dicc_preg_3={}
+
+#creamos lista con la letra de la columna 0 y convertirmos en entero la columna
+#1 para extraer el valor de cada letra correspondiente
+#organizamos alfabeticamente
+    for i in list_base:
+        list_preg_3.append((i[0], int(i[1])))
+        list_preg_3= sorted(list_preg_3, key=lambda x:x[0])
+
+#se hace esto para evitar errores en caso de que no encuentre la llave
+#y al final con el append traemos los valores de cada clave
+    for key, value in list_preg_3:
+        if key not in dicc_preg_3.keys():
+            dicc_preg_3[key] = []
+        dicc_preg_3[key].append(value)
+
+#append se encarga de adicionar
+        
+    Resp_ter_eje = []
+
+    for key, value in dicc_preg_3.items():
+       Resp_ter_eje.append((key, sum(value)))
+
+    
+    return Resp_ter_eje
+respuesta=pregunta_03()
 
 def pregunta_04():
     """
@@ -82,8 +162,33 @@ def pregunta_04():
     ]
 
     """
-    return
 
+    list_base = lect_doc()
+
+    list_month_4=[]
+
+    list_base[0:] = [i + [i[2].split("-")[1]] for i in list_base[0:]]
+
+    list_preg_4=[]
+    dicc_preg_4={}
+
+    for i in list_base:
+        list_preg_4.append((i[5],1))
+        list_preg_4 = sorted(list_preg_4, key=lambda x: x[0])
+
+    for key, value in list_preg_4:
+        if key not in dicc_preg_4.keys():
+            dicc_preg_4[key] = []
+        dicc_preg_4[key].append(value)
+
+    Resp_cuar_eje = []
+
+    for key, value in dicc_preg_4.items():
+        Resp_cuar_eje.append((key, sum(value)))
+
+    return Resp_cuar_eje
+
+respuesta=pregunta_04()
 
 def pregunta_05():
     """
@@ -100,7 +205,29 @@ def pregunta_05():
     ]
 
     """
-    return
+    list_base = lect_doc()
+
+    list_preg_5 = []
+    dicc_preg_5 = {}
+
+    for i in list_base:
+        list_preg_5.append((i[0], int(i[1])))
+        list_preg_5 = sorted(list_preg_5, key = lambda x: x[0])
+
+
+    for key, value in list_preg_5:
+        if key not in dicc_preg_5.keys():
+            dicc_preg_5[key] = []
+        dicc_preg_5[key].append(value)
+
+    Resp_quin_eje = []
+
+    for key,value in dicc_preg_5.items():
+        Resp_quin_eje.append((key, max(value), min(value)))
+
+    return Resp_quin_eje
+
+respuesta=pregunta_05()
 
 
 def pregunta_06():
@@ -125,7 +252,34 @@ def pregunta_06():
     ]
 
     """
-    return
+    list_base = lect_doc()
+    data_base = list_base
+    list_base2 = [i[4].split(",") for i in list_base[0:]]
+
+    list_preg_3 = []
+    dicc_preg_6 = {}
+
+    for i in list_base2:
+        for j in i:
+            list_preg_2 = tuple(j.split(":"))
+            list_preg_3.append(list_preg_2)
+
+    list_preg_3 = sorted(list_preg_3, key = lambda x: x[0])
+
+    for key,value in list_preg_3:
+        if key not in dicc_preg_6.keys():
+            dicc_preg_6[key] = []
+        dicc_preg_6[key].append(int(value))
+
+    Resp_sext_eje = []
+
+    for key,value in dicc_preg_6.items():
+        Resp_sext_eje.append((key,min(value), max(value)))
+
+    return Resp_sext_eje
+
+respuesta=pregunta_06()
+
 
 
 def pregunta_07():
@@ -149,8 +303,30 @@ def pregunta_07():
     ]
 
     """
-    return
+    list_base = lect_doc()
 
+    data_base = list_base
+
+    list_preg_7 = []
+    dicc_preg_7 = {}
+
+    for i in list_base:
+        list_preg_7.append((int(i[1]), i[0]))
+        list_preg_7 = sorted(list_preg_7, key=lambda x: x[0])
+
+    for key,value in list_preg_7:
+        if key not in dicc_preg_7.keys():
+            dicc_preg_7 [key] = []
+        dicc_preg_7[key].append(value)
+
+    Resp_sept_eje = []
+
+    for key, value in dicc_preg_7.items():
+        Resp_sept_eje.append((key,value))
+
+    return Resp_sept_eje
+
+respuesta=pregunta_07()
 
 def pregunta_08():
     """
@@ -174,8 +350,32 @@ def pregunta_08():
     ]
 
     """
-    return
+    list_base = lect_doc()
 
+    list_preg_8 = []
+    dicc_preg_8= {}
+
+    for i in list_base:
+        list_preg_8.append((int(i[1]), i[0]))
+        list_preg_8 = sorted(list_preg_8, key=lambda x: x[1])
+        list_preg_8 = sorted(list_preg_8, key=lambda x: x[0])
+
+    for key, value in list_preg_8:
+        if key not in dicc_preg_8.keys():
+            dicc_preg_8 [key] = []
+        dicc_preg_8[key].append(value)
+
+    Resp_oct_eje = []
+
+    for key,value in dicc_preg_8.items():
+        value = list(set(value))
+        values = "".join(value)
+        values = sorted(values)
+        Resp_oct_eje.append((key,values))
+
+    return Resp_oct_eje
+
+respuesta=pregunta_08()
 
 def pregunta_09():
     """
@@ -197,8 +397,37 @@ def pregunta_09():
     }
 
     """
-    return
+    list_base = lect_doc()
 
+    data_base = list_base
+    list_base2 = [i[4].split(",") for i in list_base[0:]]
+
+    list_preg_3 = []
+    dicc_preg_9 = {}
+
+    for i in list_base2:
+        for j in i:
+            list_preg_2 = tuple (j.split(":"))
+            list_preg_3.append(list_preg_2)
+
+    list_preg_3 = sorted(list_preg_3, key=lambda x: x[0])
+
+    for key,value in list_preg_3:
+        if key not in dicc_preg_9.keys():
+            dicc_preg_9[key] = []
+        dicc_preg_9[key].append((len,value))
+
+    list_preg_9  = []
+
+    for key, value in dicc_preg_9.items():
+        list_preg_92 = len(value)
+        list_preg_9.append((key, list_preg_92))
+
+    Resp_nov_eje = {key:value for key,value in list_preg_9 }
+  
+    return Resp_nov_eje
+
+respuesta=pregunta_09()
 
 def pregunta_10():
     """
@@ -218,8 +447,19 @@ def pregunta_10():
 
 
     """
-    return
+    list_base = lect_doc()
 
+    data_base = list_base
+
+    Resp_dec_eje = []
+
+    for i in list_base:
+        Resp_dec_eje.append((i[0],len(i[3].split(",")),len(i[4].split(","))))
+
+
+    return Resp_dec_eje
+
+respuesta=pregunta_10()
 
 def pregunta_11():
     """
@@ -239,7 +479,39 @@ def pregunta_11():
 
 
     """
-    return
+    list_base = lect_doc()
+
+    list_preg_11 = []
+    dicc_preg_11 = {}
+
+    for i in list_base:
+        list_preg_11.append((i[3].split(","),int(i[1])))
+    
+    list_tupla2 = []
+
+    for key, value in list_preg_11:
+        for i in key:
+            list_tupla2.append((i,value))
+    
+    list_tupla2 = sorted(list_tupla2, key=lambda x: x[0])
+
+    for key, value in list_tupla2:
+        if key not in dicc_preg_11.keys():
+            dicc_preg_11[key] = []
+        dicc_preg_11[key].append((value))
+
+    list_prueba = []
+    Resp_onc_eje = {}
+
+    for key, value in dicc_preg_11.items():
+        list_prueba.append((key,sum(value)))
+
+    Resp_onc_eje = {key:value for key, value in list_prueba}
+
+    return Resp_onc_eje
+
+respuesta = pregunta_11()
+
 
 
 def pregunta_12():
@@ -257,4 +529,39 @@ def pregunta_12():
     }
 
     """
-    return
+    list_base = lect_doc()
+
+    list_preg_12 = []
+    dicc_preg_12 = {}
+
+    for i in list_base:
+        list_preg_12.append((i[0], i[4].split(",")))
+    
+    list_tupla12 = []
+    list_tupla13 = []
+
+    for key, value in list_preg_12:        
+        for i in value:
+            list_tupla12.append((key, i.split(":")))
+            
+    for key, value in list_tupla12:
+        list_tupla13.append((key, int(value[1])))
+
+    list_tupla13 = sorted(list_tupla13, key=lambda x: x[0])
+
+    for key, value in list_tupla13:
+        if key not in dicc_preg_12.keys():
+            dicc_preg_12[key] = []
+        dicc_preg_12[key].append(value)
+        
+    list_Prob12 = []
+
+    for key, value in dicc_preg_12.items():
+            list_Prob12.append((key, sum(value)))
+
+    Resp_doc_eje = {key:value for key, value in list_Prob12}
+
+    return Resp_doc_eje 
+
+respuesta = pregunta_12()
+
